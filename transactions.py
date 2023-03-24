@@ -24,15 +24,17 @@ import os
 
 
 class Transaction():
-
+    # Wenhao Xie
     def selectYear(self):
         ''' return all of the completed tasks as a list of dicts.'''
         return self.runQuery("SELECT rowid, SUM(amount), SUBSTRING(date, 1, 4), desc from tran GROUP BY SUBSTRING(date, 1, 4)", ())
 
+    # Wenhao Xie
     def selectAll(self):
         ''' return all of the transactions as a list of dicts.'''
         return self.runQuery("SELECT rowid,* FROM tran", ())
 
+    # Wenhao Xie
     def runQuery(self, query, tuple):
         ''' return all of the financial transactions as a list of dicts.'''
         con = sqlite3.connect('tracker.db')
