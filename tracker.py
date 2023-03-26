@@ -66,11 +66,11 @@ def process_args(arglist):
     elif arglist[0] == "quit":
         sys.exit()
     elif arglist[0] == 'add':
-        if len(arglist) != 4:
+        if len(arglist) != 5:
             print_usage()
         else:
             transaction = {
-                'amount': arglist[1], 'date': arglist[2], 'desc': arglist[3]}
+                'amount': arglist[1], 'category': arglist[2], 'date': arglist[3], 'desc': arglist[4]}
             translist.add(transaction)
     elif arglist[0] == 'delete':
         if len(arglist) != 2:
@@ -83,6 +83,8 @@ def process_args(arglist):
         print_trans(trans=translist.selectMonth())
     elif arglist[0] == 'sum_year':
         print_trans(trans=translist.selectYear())
+    elif arglist[0] == 'sum_category':
+        print_trans(trans=translist.selectCategory())
     else:
         print(arglist, "is not implemented")
         print_usage()
@@ -100,14 +102,14 @@ def toplevel():
             args = input("command> ").split(' ')
             if args[0] == 'add':
                 # join everyting after the name as a string
-                args = ['add', args[1], args[2], " ".join(args[3:])]
+                args = ['add', args[1], args[2], args[3], " ".join(args[4:])]
             process_args(args)
-            print('-'*40+'\n'*3)
+            print('-'*80+'\n'*3)
     else:
         # read the args and process them
         args = sys.argv[1:]
         process_args(args)
-        print('-'*40+'\n'*3)
+        print('-'*80+'\n'*3)
 
 
 toplevel()
