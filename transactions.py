@@ -20,23 +20,10 @@ import sqlite3
 import os
 
 # this method converts a tuple to a dictionary
-#WZL
-def toDict(t):
-    ''' t is a tuple (rowid,amount,category,date,description)'''
-    print('t='+str(t))
-    tran = {'rowid': t[0], 'amount': t[1], 'category': t[2],
-            'date': t[3], 'desc': t[4]}
-    return tran
-
 
 '''the Transaction class'''
 
-
 class Transaction():
-    #WZL
-    def __init__(self):
-        self.runQuery('''CREATE TABLE IF NOT EXISTS tran
-                    (amount text, date text, desc text, category text)''', ())
         
     #Zhihan Li
     def delete(self, rowid):
