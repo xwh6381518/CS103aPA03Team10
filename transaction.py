@@ -4,6 +4,7 @@ transaction.py is an Object Relational Mapping to the tracker database
 
 The ORM will work map SQL rows with the schema
     (rowid,amount,category,date,desc)
+    (rowid,amount,category,date,desc)
 to Python Dictionaries as follows:
 
 (7,1000,'2020-01-01','rent payment') <-->
