@@ -29,12 +29,15 @@ def to_dict(my_tu):
             'category': my_tu[2], 'date': my_tu[3], 'desc': my_tu[4]}
     return tran
 
+def tuples_to_dicts(ts):
+    return [to_dict(t) for t in ts]
 
 class Transaction():
     '''The Transaction class'''
 
     # Barry Wen
-    def __init__(self):
+    def __init__(self, db_path):
+        self.db_path = db_path
         self.run_query('''CREATE TABLE IF NOT EXISTS tran
                     (amount text, category text, date text, desc text)''', ())
 
@@ -81,7 +84,7 @@ class Transaction():
     # Wenhao Xie
     def run_query(self, query, tuple):
         ''' return all of the financial transactions as a list of dicts.'''
-        con = sqlite3.connect('tracker.db')
+        con = sqlite3.connect(self.db_path)
         cur = con.cursor()
         cur.execute(query, tuple)
         tuples = cur.fetchall()
