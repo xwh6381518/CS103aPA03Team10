@@ -22,13 +22,14 @@ to abstract out the database operations from the
 UI/UX code.
 
 The ORM, Transaction, will map SQL rows with the schema
-    (rowid,amount,date,desc)
+    (rowid,amount,category,date,desc)
 to Python Dictionaries as follows:
 
 (7,'1000','2020-01-01','rent payment') <-->
 
 {rowid:7,
  amount:'1000',
+ category:'invoice'
  date: '2020-01-01'
  desc:'rent payment',
  }
@@ -55,6 +56,21 @@ from transaction import Transaction
 import sys
 
 
+
+# Zhihan Li
+def print_trans(trans):
+    ''' print the transaction items '''
+    if len(trans) == 0:
+        print('no transaction to print')
+        return
+    print('\n')
+    print("%-10s %-10s %-20s %-30s %-30s" %
+          ('item #', 'amount', 'category', 'date', 'desc'))
+    print('-'*80)
+    for item in trans:
+        values = tuple(item.values())  # (rowid,amount,category,date,desc)
+        print("%-10s %-10s %-20s %-30s %-30s" % values)
+
 # Wenhao Xie
 def process_args(arglist):
     ''' examine args and make appropriate calls to Transaction'''
@@ -70,7 +86,7 @@ def process_args(arglist):
             print_usage()
         else:
             transaction = {
-                'amount': arglist[1], 'category': arglist[2], 'date': arglist[3], 'desc': arglist[4]}
+                'amount': arglist[1], 'category' : arglist[2], 'date': arglist[3], 'desc': arglist[4]}
             translist.add(transaction)
     elif arglist[0] == 'delete':
         if len(arglist) != 2:
@@ -88,7 +104,6 @@ def process_args(arglist):
     else:
         print(arglist, "is not implemented")
         print_usage()
-
 
 # Wenhao Xie
 def toplevel():
