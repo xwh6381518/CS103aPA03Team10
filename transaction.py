@@ -29,17 +29,18 @@ def to_dict(my_tu):
             'category': my_tu[2], 'date': my_tu[3], 'desc': my_tu[4]}
     return tran
 
+
 def tuples_to_dicts(ts):
     return [to_dict(t) for t in ts]
+
 
 class Transaction():
     '''The Transaction class'''
 
     # Barry Wen
-    def __init__(self, db_path):
-        self.db_path = db_path
-        self.run_query('''CREATE TABLE IF NOT EXISTS tran
-                    (amount text, category text, date text, desc text)''', ())
+    def __init__(self):
+        self.run_query(
+            '''CREATE TABLE IF NOT EXISTS tran amount text, category text, date text, desc text)''', ())
 
     # Barry Wen
     def add(self, item):
@@ -61,20 +62,20 @@ class Transaction():
     # Zhihan Li
     def select_day(self):
         ''' return all of the transactions as a list of dicts.'''
-        return self.run_query("SELECT rowid, SUM(amount), category,"
-                              + "date, desc from tran GROUP BY date", ())
+        return self.run_query('''SELECT rowid, SUM(amount), category,
+                               date, desc from tran GROUP BY date''', ())
 
     # Zhihan Li
     def select_month(self):
         ''' return all of the completed tasks as a list of dicts.'''
-        return self.run_query("SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 7),"
-                              + "desc from tran GROUP BY SUBSTRING(date, 1, 7)", ())
+        return self.run_query('''SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 7),
+                              + "desc from tran GROUP BY SUBSTRING(date, 1, 7)''', ())
 
     # Wenhao Xie
     def select_year(self):
         ''' return all of the completed tasks as a list of dicts.'''
-        return self.run_query("SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 4),"
-                              + "desc from tran GROUP BY SUBSTRING(date, 1, 4)", ())
+        return self.run_query('''SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 4),
+                              + "desc from tran GROUP BY SUBSTRING(date, 1, 4)''', ())
 
     # Wenhao Xie
     def select_all(self):
