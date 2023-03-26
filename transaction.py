@@ -4,7 +4,6 @@ transaction.py is an Object Relational Mapping to the tracker database
 
 The ORM will work map SQL rows with the schema
     (rowid,amount,category,date,desc)
-    (rowid,amount,category,date,desc)
 to Python Dictionaries as follows:
 
 (7,1000,'2020-01-01','rent payment') <-->
@@ -21,26 +20,22 @@ import sqlite3
 
 
 # Barry Wen
-def to_dict(my_tu):
-    ''' this method converts a tuple to a dictionary, 
-    t is a tuple (rowid,amount,category,date,desc)'''
-    print('t='+str(my_tu))
-    tran = {'rowid': my_tu[0], 'amount': my_tu[1],
-            'category': my_tu[2], 'date': my_tu[3], 'desc': my_tu[4]}
+# this method converts a tuple to a dictionary
+def to_dict(t):
+    ''' t is a tuple (rowid,amount,category,date,desc)'''
+    print('t='+str(t))
+    tran = {'rowid': t[0], 'amount': t[1],
+            'category': t[2], 'date': t[3], 'desc': t[4]}
     return tran
-
-
-def tuples_to_dicts(ts):
-    return [to_dict(t) for t in ts]
 
 
 class Transaction():
     '''The Transaction class'''
-
     # Barry Wen
+
     def __init__(self):
-        self.run_query(
-            '''CREATE TABLE IF NOT EXISTS tran amount text, category text, date text, desc text)''', ())
+        self.run_query('''CREATE TABLE IF NOT EXISTS tran
+                    (amount text, category text, date text, desc text)''', ())
 
     # Barry Wen
     def add(self, item):
@@ -62,20 +57,20 @@ class Transaction():
     # Zhihan Li
     def select_day(self):
         ''' return all of the transactions as a list of dicts.'''
-        return self.run_query('''SELECT rowid, SUM(amount), category,
-                               date, desc from tran GROUP BY date''', ())
+        return self.run_query("SELECT rowid, SUM(amount), category,"
+                              + "date, desc from tran GROUP BY date", ())
 
     # Zhihan Li
     def select_month(self):
         ''' return all of the completed tasks as a list of dicts.'''
-        return self.run_query('''SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 7),
-                              + "desc from tran GROUP BY SUBSTRING(date, 1, 7)''', ())
+        return self.run_query("SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 7),"
+                              + "desc from tran GROUP BY SUBSTRING(date, 1, 7)", ())
 
     # Wenhao Xie
     def select_year(self):
         ''' return all of the completed tasks as a list of dicts.'''
-        return self.run_query('''SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 4),
-                              + "desc from tran GROUP BY SUBSTRING(date, 1, 4)''', ())
+        return self.run_query("SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 4),"
+                              + "desc from tran GROUP BY SUBSTRING(date, 1, 4)", ())
 
     # Wenhao Xie
     def select_all(self):
@@ -85,7 +80,7 @@ class Transaction():
     # Wenhao Xie
     def run_query(self, query, tuple):
         ''' return all of the financial transactions as a list of dicts.'''
-        con = sqlite3.connect(self.db_path)
+        con = sqlite3.connect('tracker.db')
         cur = con.cursor()
         cur.execute(query, tuple)
         tuples = cur.fetchall()
