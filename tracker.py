@@ -55,9 +55,8 @@ could be replaced with PostgreSQL or Pandas or straight python lists
 from transaction import Transaction
 import sys
 
+
 # Barry Wen
-
-
 def print_usage():
     ''' print an explanation of how to use this command '''
     print('''usage:
@@ -71,9 +70,8 @@ def print_usage():
             '''
           )
 
+
 # Zhihan Li
-
-
 def print_trans(trans):
     ''' print the transaction items '''
     if len(trans) == 0:
@@ -88,8 +86,6 @@ def print_trans(trans):
         print("%-10s %-10s %-20s %-30s %-30s" % values)
 
 # Wenhao Xie
-
-
 def process_args(arglist):
     ''' examine args and make appropriate calls to Transaction'''
     translist = Transaction()
@@ -104,7 +100,7 @@ def process_args(arglist):
             print_usage()
         else:
             transaction = {
-                'amount': arglist[1], 'category': arglist[2], 'date': arglist[3], 'desc': arglist[4]}
+                'amount': arglist[1], 'category' : arglist[2], 'date': arglist[3], 'desc': arglist[4]}
             translist.add(transaction)
     elif arglist[0] == 'delete':
         if len(arglist) != 2:
@@ -124,8 +120,6 @@ def process_args(arglist):
         print_usage()
 
 # Wenhao Xie
-
-
 def toplevel():
     ''' read the command args and process them'''
     if len(sys.argv) == 1:
