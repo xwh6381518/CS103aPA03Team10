@@ -51,7 +51,7 @@ could be replaced with PostgreSQL or Pandas or straight python lists
 # here are some helper functions ...
 
 
-from transactions import Transaction
+from transaction import Transaction
 import sys
 
 
