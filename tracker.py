@@ -64,6 +64,7 @@ def print_usage():
             transaction show
             transaction add amount category date description
             transaction delete item_id
+            transaction sum_category
             transaction sum_day
             transaction sum_month
             transaction sum_year 
@@ -89,7 +90,7 @@ def print_trans(trans):
 # Wenhao Xie
 def process_args(arglist):
     ''' examine args and make appropriate calls to Transaction'''
-    translist = Transaction()
+    translist = Transaction('tracker.db')
     if arglist == []:
         print_usage()
     elif arglist[0] == "show":
