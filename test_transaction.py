@@ -98,29 +98,10 @@ def test_select_day(trans, returned_dicts):
 def test_select_category(trans, returned_dicts):
     ts = trans
     results = ts.select_category()
-    list_ = []
-    expected = []
-    rid = 1
-    for d in returned_dicts:
-        sum = 0
-        temp = {}
-        if d['category'] not in list_:
-            list_.append(d['category'])
-            sum = int(d['amount'])
-            temp['rowid'] = rid
-            rid += 1
-            temp['amount'] = sum
-            temp['category'] = d['category']
-            temp['date'] = d['date']
-            temp['desc'] = d['desc']
-            expected.append(temp) 
-        else:
-            for i in range(len(list_)):
-                if expected[i]['category'] == d['category']:
-                    sum = int(d['amount']) + int(expected[i]['amount'])
-                    expected[i]['amount'] = sum
-                    rid += 1
-                    
+    expected = [{'rowid': 1, 'amount': 400, 'category': 'type1',
+                  'date': '2020-01-01', 'desc': 'test1'}, 
+                  {'rowid': 2, 'amount': 200, 'category': 'type2',
+                    'date': '2020-01-02', 'desc': 'test2'}]  
     assert results == expected
 
 # Zhihan Li
