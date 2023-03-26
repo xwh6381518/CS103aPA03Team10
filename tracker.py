@@ -85,9 +85,8 @@ def print_trans(trans):
         values = tuple(item.values())  # (rowid,amount,category,date,desc)
         print("%-10s %-10s %-20s %-30s %-30s" % values)
 
+
 # Wenhao Xie
-
-
 def process_args(arglist):
     ''' examine args and make appropriate calls to Transaction'''
     translist = Transaction()
@@ -122,9 +121,8 @@ def process_args(arglist):
         print(arglist, "is not implemented")
         print_usage()
 
+
 # Wenhao Xie
-
-
 def toplevel():
     ''' read the command args and process them'''
     if len(sys.argv) == 1:

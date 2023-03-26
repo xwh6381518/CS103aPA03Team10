@@ -21,19 +21,19 @@ import sqlite3
 
 
 # Barry Wen
-# this method converts a tuple to a dictionary
-def to_dict(t):
-    ''' t is a tuple (rowid,amount,category,date,desc)'''
-    print('t='+str(t))
-    tran = {'rowid': t[0], 'amount': t[1],
-            'category': t[2], 'date': t[3], 'desc': t[4]}
+def to_dict(my_tu):
+    ''' this method converts a tuple to a dictionary, 
+    t is a tuple (rowid,amount,category,date,desc)'''
+    print('t='+str(my_tu))
+    tran = {'rowid': my_tu[0], 'amount': my_tu[1],
+            'category': my_tu[2], 'date': my_tu[3], 'desc': my_tu[4]}
     return tran
 
 
 class Transaction():
     '''The Transaction class'''
-    # Barry Wen
 
+    # Barry Wen
     def __init__(self):
         self.run_query('''CREATE TABLE IF NOT EXISTS tran
                     (amount text, category text, date text, desc text)''', ())
