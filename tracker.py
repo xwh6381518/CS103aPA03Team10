@@ -2,7 +2,8 @@
 tracker is an app that maintains a financial transactions list
 just as with the transactions code in this folder.
 
-it offers the user the following options and makes calls to the Transaction class to update the database.
+it offers the user the following options and makes calls to 
+the Transaction class to update the database.
 
 0. quit
 1. show categories
@@ -51,13 +52,11 @@ could be replaced with PostgreSQL or Pandas or straight python lists
 
 # here are some helper functions ...
 
-
-from transaction import Transaction
 import sys
+from transaction import Transaction
+
 
 # Barry Wen
-
-
 def print_usage():
     ''' print an explanation of how to use this command '''
     print('''usage:
@@ -71,9 +70,8 @@ def print_usage():
             '''
           )
 
+
 # Zhihan Li
-
-
 def print_trans(trans):
     ''' print the transaction items '''
     if len(trans) == 0:
@@ -96,7 +94,7 @@ def process_args(arglist):
     if arglist == []:
         print_usage()
     elif arglist[0] == "show":
-        print_trans(trans=translist.selectAll())
+        print_trans(trans=translist.select_all())
     elif arglist[0] == "quit":
         sys.exit()
     elif arglist[0] == 'add':
@@ -104,7 +102,8 @@ def process_args(arglist):
             print_usage()
         else:
             transaction = {
-                'amount': arglist[1], 'category': arglist[2], 'date': arglist[3], 'desc': arglist[4]}
+                'amount': arglist[1], 'category': arglist[2],
+                'date': arglist[3], 'desc': arglist[4]}
             translist.add(transaction)
     elif arglist[0] == 'delete':
         if len(arglist) != 2:
@@ -112,13 +111,13 @@ def process_args(arglist):
         else:
             translist.delete(arglist[1])
     elif arglist[0] == 'sum_day':
-        print_trans(trans=translist.selectDay())
+        print_trans(trans=translist.select_day())
     elif arglist[0] == 'sum_month':
-        print_trans(trans=translist.selectMonth())
+        print_trans(trans=translist.select_month())
     elif arglist[0] == 'sum_year':
-        print_trans(trans=translist.selectYear())
+        print_trans(trans=translist.select_year())
     elif arglist[0] == 'sum_category':
-        print_trans(trans=translist.selectCategory())
+        print_trans(trans=translist.select_category())
     else:
         print(arglist, "is not implemented")
         print_usage()
