@@ -29,8 +29,12 @@ def to_dict(my_tu):
             'category': my_tu[2], 'date': my_tu[3], 'desc': my_tu[4]}
     return tran
 
-def tuples_to_dicts(ts):
-    return [to_dict(t) for t in ts]
+
+# Barry Wen
+def tuples_to_dicts(t_s):
+    '''conver tuple to dict'''
+    return [to_dict(t) for t in t_s]
+
 
 class Transaction():
     '''The Transaction class'''
@@ -41,7 +45,7 @@ class Transaction():
         self.run_query('''CREATE TABLE IF NOT EXISTS tran
                     (amount text, category text, date text, desc text)''', ())
 
-    # Barry Wen
+    # Zhihan Li
     def add(self, item):
         ''' create a transaction item and add it to the transaction table '''
         return self.run_query("INSERT INTO tran VALUES(?,?,?,?)",
@@ -64,7 +68,7 @@ class Transaction():
         return self.run_query("SELECT rowid, SUM(amount), category,"
                               + "date, desc from tran GROUP BY date", ())
 
-    # Zhihan Li
+    # Wenhao Xie
     def select_month(self):
         ''' return all of the completed tasks as a list of dicts.'''
         return self.run_query("SELECT rowid, SUM(amount), category, SUBSTRING(date, 1, 7),"
@@ -82,11 +86,11 @@ class Transaction():
         return self.run_query("SELECT rowid,* FROM tran", ())
 
     # Wenhao Xie
-    def run_query(self, query, tuple):
+    def run_query(self, query, tup):
         ''' return all of the financial transactions as a list of dicts.'''
         con = sqlite3.connect(self.db_path)
         cur = con.cursor()
-        cur.execute(query, tuple)
+        cur.execute(query, tup)
         tuples = cur.fetchall()
         con.commit()
         con.close()
