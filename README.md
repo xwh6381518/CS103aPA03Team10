@@ -65,3 +65,137 @@ test_transaction.py::test_select_year PASSED                                    
 ## Transaction.py:
 ## transaction.py stores financial transactions with five fields: item #, amount, category, date and description
 ## It allows the user to read and update the database as need.
+## Here is the outputs by running the tracker.py.
+C:\Users\zhiha\Desktop\testProject\CS103aPATeam10 [main ≡ +0 ~1 -0 !]> & C:/Users/zhiha/AppData/Local/Programs/Python/Python311/python.exe c:/Users/zhiha/Desktop/testProject/CS103aPATeam10/tracker.py  
+usage:
+            transaction quit
+            transaction show
+            transaction add amount category date description
+            transaction delete item_id
+            transaction sum_category
+            transaction sum_day
+            transaction sum_month
+            transaction sum_year
+
+command> show
+t=(1, '100', 'A', '2020-02-02', 'qqq')
+t=(2, '100', 'A', '2020-02-02', 'aaa')
+t=(3, '123', 'b', '2011-01-01', 'test')
+t=(4, '100', 'A', '2021-01-01', 'test1')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+1          100        A                    2020-02-02                     qqq
+2          100        A                    2020-02-02                     aaa
+3          123        b                    2011-01-01                     test
+4          100        A                    2021-01-01                     test1
+--------------------------------------------------------------------------------
+
+
+
+command> add 666 type1 2011-08-01 test2 
+--------------------------------------------------------------------------------
+
+
+
+command> show
+t=(1, '100', 'A', '2020-02-02', 'qqq')
+t=(2, '100', 'A', '2020-02-02', 'aaa')
+t=(3, '123', 'b', '2011-01-01', 'test')
+t=(4, '100', 'A', '2021-01-01', 'test1')
+t=(5, '666', 'type1', '2011-08-01', 'test2')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+1          100        A                    2020-02-02                     qqq
+2          100        A                    2020-02-02                     aaa
+3          123        b                    2011-01-01                     test
+4          100        A                    2021-01-01                     test1
+5          666        type1                2011-08-01                     test2
+--------------------------------------------------------------------------------
+
+
+
+command> delete 5
+--------------------------------------------------------------------------------
+
+
+
+command> show
+t=(1, '100', 'A', '2020-02-02', 'qqq')
+t=(2, '100', 'A', '2020-02-02', 'aaa')
+t=(3, '123', 'b', '2011-01-01', 'test')
+t=(4, '100', 'A', '2021-01-01', 'test1')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+1          100        A                    2020-02-02                     qqq
+2          100        A                    2020-02-02                     aaa
+3          123        b                    2011-01-01                     test
+4          100        A                    2021-01-01                     test1
+--------------------------------------------------------------------------------
+
+
+
+command> sum_category
+t=(1, 300, 'A', '2020-02-02', 'qqq')
+t=(3, 123, 'b', '2011-01-01', 'test')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+1          300        A                    2020-02-02                     qqq
+3          123        b                    2011-01-01                     test
+--------------------------------------------------------------------------------
+
+
+
+command> sum_day
+t=(3, 123, 'b', '2011-01-01', 'test')
+t=(1, 200, 'A', '2020-02-02', 'qqq')
+t=(4, 100, 'A', '2021-01-01', 'test1')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+3          123        b                    2011-01-01                     test
+1          200        A                    2020-02-02                     qqq
+4          100        A                    2021-01-01                     test1
+--------------------------------------------------------------------------------
+
+
+
+command> sum_month
+t=(3, 123, 'b', '2011-01', 'test')
+t=(1, 200, 'A', '2020-02', 'qqq')
+t=(4, 100, 'A', '2021-01', 'test1')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+3          123        b                    2011-01                        test
+1          200        A                    2020-02                        qqq
+4          100        A                    2021-01                        test1
+--------------------------------------------------------------------------------
+
+
+
+command> sum_year
+t=(3, 123, 'b', '2011', 'test')
+t=(1, 200, 'A', '2020', 'qqq')
+t=(4, 100, 'A', '2021', 'test1')
+
+
+item #     amount     category             date                           desc
+--------------------------------------------------------------------------------
+3          123        b                    2011                           test
+1          200        A                    2020                           qqq
+4          100        A                    2021                           test1
+--------------------------------------------------------------------------------
+
+
+
+command> quit
