@@ -6,7 +6,7 @@ from transaction import to_dict, Transaction, tuples_to_dicts
 
 # Wenhao Xie
 @pytest.fixture
-def my_tuples():
+def tuples():
     " create some tuples to put in the database "
     return [("100", "type1", "2020-01-01", "test1"),
             ("200", "type2", "2020-01-02", "test2"),
@@ -23,7 +23,7 @@ def returned_tuples(tuples):
 
 # Wenhao Xie
 @pytest.fixture
-def returned_dict(tuples):
+def returned_dicts(tuples):
     " add a rowid to the beginning of each tuple "
     return tuples_to_dicts([(i+1,)+tuples[i] for i in range(len(tuples))])
 
@@ -37,9 +37,9 @@ def trans_path(tmp_path):
 
 # Zhihan Li
 @pytest.fixture(autouse=True)
-def trans(t_path, tuples):
+def trans(trans_path, tuples):
     "create and initialize the trans.db database in /tmp "
-    con = sqlite3.connect(t_path)
+    con = sqlite3.connect(trans_path)
     cur = con.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS tran
                     (amount text, category text, date text, desc text)''')
@@ -47,25 +47,25 @@ def trans(t_path, tuples):
         cur.execute('''insert into tran values(?,?,?,?)''', tuples[i])
     # create the todolist database
     con.commit()
-    t_s = Transaction(t_path)
+    t_s = Transaction(trans_path)
     yield t_s
     cur.execute('''drop table tran''')
     con.commit()
 
 
 # Zhihan Li
-def test_select_all(trs, returned_dicts):
+def test_select_all(trans, returned_dicts):
     "test for select_all method"
-    t_s = trs
+    t_s = trans
     results = t_s.select_all()
     expected = returned_dicts
     assert results == expected
 
 
 # Zhihan Li
-def test_select_day(trs, returned_dicts):
+def test_select_day(trans, returned_dicts):
     "test for select_day"
-    t_s = trs
+    t_s = trans
     results = t_s.select_day()
     list_ = []
     expected = []
@@ -95,9 +95,9 @@ def test_select_day(trs, returned_dicts):
 
 
 # Zhihan Li
-def test_select_category(trs):
+def test_select_category(trans):
     "test for select_category"
-    t_s = trs
+    t_s = trans
     results = t_s.select_category()
     expected = [{'rowid': 1, 'amount': 400, 'category': 'type1',
                  'date': '2020-01-01', 'desc': 'test1'},
@@ -107,9 +107,9 @@ def test_select_category(trs):
 
 
 # Zhihan Li
-def test_delete(trs, returned_dicts):
+def test_delete(trans, returned_dicts):
     "test for delete"
-    t_s = trs
+    t_s = trans
     t_s.delete(1)
     results = t_s.select_all()
     expected = returned_dicts
@@ -117,23 +117,23 @@ def test_delete(trs, returned_dicts):
 
 
 # Barry Wen
-def test_add(trs, returned_dicts):
+def test_add(trans, returned_dicts):
     "test for add"
-    t_s = trs
+    t_s = trans
     new_transaction_tuple = ("400", "type3", "2020-03-01", "test4")
     new_transaction_dict = to_dict(
         (len(returned_dicts) + 1,) + new_transaction_tuple)
 
-    trs.add(new_transaction_dict)
+    trans.add(new_transaction_dict)
     results = t_s.select_all()
     expected = returned_dicts + [new_transaction_dict]
     assert results == expected
 
 
 # Barry Wen
-def test_select_month(trs, returned_dicts):
+def test_select_month(trans, returned_dicts):
     "test for select_month"
-    t_s = trs
+    t_s = trans
     new_transaction_tuple = ("500", "type4", "2020-04-01", "test5")
     new_transaction_dict = to_dict(
         (len(returned_dicts) + 1,) + new_transaction_tuple)
@@ -151,9 +151,9 @@ def test_select_month(trs, returned_dicts):
 
 
 # Barry Wen
-def test_select_year(trs, returned_dicts):
+def test_select_year(trans, returned_dicts):
     "test for select_year"
-    t_s = trs
+    t_s = trans
     new_transaction_tuple = ("600", "type5", "2021-01-01", "test6")
     new_transaction_dict = to_dict(
         (len(returned_dicts) + 1,) + new_transaction_tuple)

@@ -62,6 +62,6 @@ test_transaction.py::test_select_year PASSED                                    
 ## Tracker.py:
 ## Tracker.py makes calls to the Transaction class to update the database.
 
-## Transaction.oy:
+## Transaction.py:
 ## transaction.py stores financial transactions with five fields: item #, amount, category, date and description
 ## It allows the user to read and update the database as need.
